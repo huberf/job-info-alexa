@@ -44,6 +44,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine','ejs');
 
+var JOB_NAMES = require('./jobNames.json');
+
 var getCareer = (name) => {
   r.get('https://ctips.lifetriage.com/api/v1/jobs/name/' + name, (err, response, body) => {
       return JSON.parse(body);
@@ -61,7 +63,14 @@ jobApp.intent("JobDescription",
     "slots": {"JobName": "JOB_NAMES"},
   },
   function(request,response) {
-    response.say(getCareer(request.slot('JobName').income));
+    var maxHamming = ['None', 0]
+    for (var i = 0; i < JOB_NAMES.length; i++) {
+      if (hamming(request.slot('JobName'), JOB_NAMES[i]) > maxHamming[1]) {
+        maxHamming[0] == JOB_NAMES[i];
+        maxHamming[1] == hamming(request.slot('JobName'), JOB_NAMES[i]);
+      }
+    }
+    response.say('We heard ' + maxHamming[0]);
   }
 );
 jobApp.intent("JobIncome",
