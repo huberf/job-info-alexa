@@ -51,12 +51,12 @@ var getCareer = (name) => {
 }
 
 
-var scienceApp = new alexa.app('science');
-scienceApp.launch(function(request,response) {
+var jobApp = new alexa.app('jobs');
+jobApp.launch(function(request,response) {
   response.say("Here is the latest post on the science subreddit. " + getPost(0, "science") + ". To get further posts ask for the second to the fifth post.");
   response.card("Science Post", getPost(0, "science") + ". Link: " + getPost(0, "scienceLinks"))
 });
-scienceApp.intent("JobDescription",
+jobApp.intent("JobDescription",
   {
     "slots": {"JobName": "JOB_NAMES"},
   },
@@ -64,7 +64,7 @@ scienceApp.intent("JobDescription",
     response.say(getCareer(request.slot('JobName').income));
   }
 );
-scienceApp.intent("JobIncome",
+jobApp.intent("JobIncome",
     {
       "slots": {"JobName": "JOB_NAMES"},
     },
@@ -72,7 +72,7 @@ scienceApp.intent("JobIncome",
       response.say(request.slot('JobName') + ' earn about $2000 a year');
     }
 );
-scienceApp.express(app, "/echo/");
+jobApp.express(app, "/echo/");
 
 // Launch /echo/test in your browser with a GET request!
 app.listen(PORT);
