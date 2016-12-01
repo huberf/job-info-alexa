@@ -48,7 +48,7 @@ app.set('view engine','ejs');
 var JOB_NAMES = require('./jobNames.json');
 
 var getCareer = (name) => {
-  r.get('https://ctips.lifetriage.com/api/v1/jobs/name/' + name, (err, response, body) => {
+  request.get('https://ctips.lifetriage.com/api/v1/jobs/name/' + name, (err, response, body) => {
       return JSON.parse(body);
   });
 }
