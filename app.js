@@ -1,5 +1,6 @@
 // Start up the server
 var express = require('express');
+var hamming = require('compute-hamming');
 var alexa = require('alexa-app');
 var verifier = require('alexa-verifier');
 var bodyParser = require('body-parser');
