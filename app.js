@@ -1,5 +1,6 @@
 // Start up the server
 var express = require('express');
+var stringCheck = require('string-similarity');
 var hamming = require('compute-hamming');
 var alexa = require('alexa-app');
 var verifier = require('alexa-verifier');
@@ -56,14 +57,15 @@ var getCareer = (name) => {
 
 var jobApp = new alexa.app('jobs');
 jobApp.launch(function(request,response) {
-  response.say("Here is the latest post on the science subreddit. " + getPost(0, "science") + ". To get further posts ask for the second to the fifth post.");
-  response.card("Science Post", getPost(0, "science") + ". Link: " + getPost(0, "scienceLinks"))
+  response.say("You can ask me for information about jobs. Try saying, how much do Web Developers earn, or tell me about Medical Workers.");
 });
 jobApp.intent("JobDescription",
   {
     "slots": {"JobName": "JOB_NAMES"},
   },
   function(request,response) {
+    /*
+    // Finish making Hamming work
     var maxHamming = ['None', 0]
     for (var i = 0; i < JOB_NAMES.length; i++) {
       if (hamming(request.slot('JobName'), JOB_NAMES[i]) > maxHamming[1]) {
@@ -72,6 +74,9 @@ jobApp.intent("JobDescription",
       }
     }
     response.say('We heard ' + maxHamming[0]);
+    */
+    var bestMatch = stringCheck.findBestMatch(request.slot('JobName'), JOB_NAMES);
+    response.say('We heard ' + bestMatch);
   }
 );
 jobApp.intent("JobIncome",

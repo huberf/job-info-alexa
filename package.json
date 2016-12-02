@@ -1,5 +1,5 @@
 {
-  "name": "science-news",
+  "name": "job-info",
   "version": "0.1.0",
   "engines": {
     "node": "*"
@@ -16,6 +16,7 @@
     "nforce-chatter": "*",
     "promise": "^7.1.1",
     "request": "^2.79.0",
-    "sfdc-oauth-amazon-express": "*"
+    "sfdc-oauth-amazon-express": "*",
+    "string-similarity": "^1.1.0"
   }
 }
