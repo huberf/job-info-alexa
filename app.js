@@ -50,6 +50,7 @@ var JOB_NAMES = require('./jobNames.json');
 
 var getCareer = (name) => {
   request.get('https://ctips.lifetriage.com/api/v1/jobs/name/' + name, (err, response, body) => {
+      console.log('Received career data for ' + name);
       return JSON.parse(body);
   });
 }
