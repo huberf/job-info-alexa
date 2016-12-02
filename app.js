@@ -76,7 +76,8 @@ jobApp.intent("JobDescription",
     response.say('We heard ' + maxHamming[0]);
     */
     var bestMatch = stringCheck.findBestMatch(request.slot('JobName'), JOB_NAMES);
-    response.say('We heard ' + bestMatch.bestMatch.target + ' with a certainty of ' + bestMatch.bestMatch.rating);
+    response.say('We heard ' + bestMatch.bestMatch.target + '. ' + getCareer(bestMatch.bestMatch.target).description);
+    // response.say('We heard ' + bestMatch.bestMatch.target + ' with a certainty of ' + bestMatch.bestMatch.rating);
   }
 );
 jobApp.intent("JobIncome",
