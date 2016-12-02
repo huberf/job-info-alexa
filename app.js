@@ -49,9 +49,11 @@ app.set('view engine','ejs');
 var JOB_NAMES = require('./jobNames.json');
 
 var getCareer = (name) => {
-  request.get('https://ctips.lifetriage.com/api/v1/jobs/name/' + name, (err, response, body) => {
-      console.log('Received career data for ' + name);
-      return JSON.parse(body);
+  return new Promise((fulfill, reject) => {
+    request.get('https://ctips.lifetriage.com/api/v1/jobs/name/' + name, (err, response, body) => {
+        console.log('Received career data for ' + name);
+        fulfill(JSON.parse(body));
+    });
   });
 }
 
@@ -77,7 +79,9 @@ jobApp.intent("JobDescription",
     response.say('We heard ' + maxHamming[0]);
     */
     var bestMatch = stringCheck.findBestMatch(request.slot('JobName'), JOB_NAMES);
-    response.say('We heard ' + bestMatch.bestMatch.target + '. ' + getCareer(bestMatch.bestMatch.target).description);
+    getCareer(bestMatch.bestMatch.target).then((data) => {
+      response.say('We heard ' + bestMatch.bestMatch.target + '. ' + data.description);
+    });
     // response.say('We heard ' + bestMatch.bestMatch.target + ' with a certainty of ' + bestMatch.bestMatch.rating);
   }
 );
