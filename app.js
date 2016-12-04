@@ -98,6 +98,21 @@ jobApp.intent("JobIncome",
     return false;
   }
 );
+jobApp.intent("JobEmployment",
+  {
+    "slots": {"JobName": "JOB_NAMES"},
+  },
+  function(request, response) {
+    parseJob(request.slot('JobName')).then((jobTitle) => {
+      getCareer(jobTitle.target).then((data) => {
+        response.say('There are about ' + data.employment + jobTitle.target + ' in the US.');
+        response.send();
+      });
+      return false;
+    });
+    return false;
+  }
+);
 jobApp.express(app, "/echo/");
 
 // Launch /echo/test in your browser with a GET request!
