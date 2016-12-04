@@ -78,6 +78,7 @@ jobApp.intent("JobDescription",
         response.say('We heard ' + jobTitle.target + (jobTitle.rating > 0.8)?'':', but aren\'t completely certain.' + '. ' + data.description);
         response.send();
       });
+        return false;
     });
     return false;
   }
@@ -92,6 +93,7 @@ jobApp.intent("JobIncome",
         response.say(jobTitle.target + ' earn about $' + data.meanAnnualWage + ' a year');
         response.send();
       });
+      return false;
     });
     return false;
   }
