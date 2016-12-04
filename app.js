@@ -59,7 +59,7 @@ var getCareer = (name) => {
 
 var parseJob = (name) => {
   return new Promise((fulfill, reject) => {
-    var bestMatch = stringCheck.findBestMatch(request.slot('JobName'), JOB_NAMES);
+    var bestMatch = stringCheck.findBestMatch(name, JOB_NAMES);
     fulfill(bestMatch.bestMatch);
   });
 }
