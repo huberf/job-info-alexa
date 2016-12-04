@@ -57,6 +57,12 @@ var getCareer = (name) => {
   });
 }
 
+var parseJob = (name) => {
+  return new Promise((fulfill, reject) => {
+    var bestMatch = stringCheck.findBestMatch(request.slot('JobName'), JOB_NAMES);
+    fulfill(bestMatch.bestMatch);
+  });
+}
 
 var jobApp = new alexa.app('jobs');
 jobApp.launch(function(request,response) {
@@ -67,33 +73,27 @@ jobApp.intent("JobDescription",
     "slots": {"JobName": "JOB_NAMES"},
   },
   function(request,response) {
-    /*
-    // Finish making Hamming work
-    var maxHamming = ['None', 0]
-    for (var i = 0; i < JOB_NAMES.length; i++) {
-      if (hamming(request.slot('JobName'), JOB_NAMES[i]) > maxHamming[1]) {
-        maxHamming[0] == JOB_NAMES[i];
-        maxHamming[1] == hamming(request.slot('JobName'), JOB_NAMES[i]);
-      }
-    }
-    response.say('We heard ' + maxHamming[0]);
-    */
-    var bestMatch = stringCheck.findBestMatch(request.slot('JobName'), JOB_NAMES);
-    getCareer(bestMatch.bestMatch.target).then((data) => {
-      response.say('We heard ' + bestMatch.bestMatch.target + (bestMatch.bestMatch.rating > 0.8)?'':', but aren\'t completely certain.' + '. ' + data.description);
-      response.send();
+    parseJob(request.slot('JobName').then((jobTitle) => {
+      getCareer(jobTitle.target).then((data) => {
+        response.say('We heard ' + jobTitle.target + (jobTitle.rating > 0.8)?'':', but aren\'t completely certain.' + '. ' + data.description);
+        response.send();
+      });
     });
-    // response.say('We heard ' + bestMatch.bestMatch.target + ' with a certainty of ' + bestMatch.bestMatch.rating);
     return false;
   }
 );
 jobApp.intent("JobIncome",
-    {
-      "slots": {"JobName": "JOB_NAMES"},
-    },
-    function(request, response) {
-      response.say(request.slot('JobName') + ' earn about $2000 a year');
-    }
+  {
+    "slots": {"JobName": "JOB_NAMES"},
+  },
+  function(request, response) {
+    parseJob(request.slot('JobName').then((jobTitle) => {
+      getCareer(jobTitle.target).then((data) => {
+        response.say(jobTitle.target + ' earn about $' + data.meanAnnualWage + ' a year');
+      });
+    });
+    return false;
+  }
 );
 jobApp.express(app, "/echo/");
 
