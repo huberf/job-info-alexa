@@ -90,6 +90,7 @@ jobApp.intent("JobIncome",
     parseJob(request.slot('JobName')).then((jobTitle) => {
       getCareer(jobTitle.target).then((data) => {
         response.say(jobTitle.target + ' earn about $' + data.meanAnnualWage + ' a year');
+        response.send();
       });
     });
     return false;
