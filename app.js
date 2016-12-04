@@ -75,10 +75,10 @@ jobApp.intent("JobDescription",
   function(request,response) {
     parseJob(request.slot('JobName')).then((jobTitle) => {
       getCareer(jobTitle.target).then((data) => {
-        response.say('We heard ' + jobTitle.target + (jobTitle.rating > 0.8)?'':', but aren\'t completely certain.' + '. ' + data.description);
+        response.say('Here is some info about ' + jobTitle.target + '. ' + data.description);
         response.send();
       });
-        return false;
+      return false;
     });
     return false;
   }
