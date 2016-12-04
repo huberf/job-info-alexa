@@ -105,7 +105,7 @@ jobApp.intent("JobEmployment",
   function(request, response) {
     parseJob(request.slot('JobName')).then((jobTitle) => {
       getCareer(jobTitle.target).then((data) => {
-        response.say('There are about ' + data.employment + jobTitle.target + ' in the US.');
+        response.say('There are about ' + data.employment + ' ' + jobTitle.target + ' in the US.');
         response.send();
       });
       return false;
