@@ -120,7 +120,7 @@ jobApp.intent("JobRandom",
     "slots": [],
   },
   function(request, response) {
-    var item = Math.floor((Math.random() * JOB_NAMES.length);
+    var item = Math.floor(Math.random() * JOB_NAMES.length);
     getCareer(JOB_NAMES[item]).then((data) => {
       response.say('Rolling the dice... And ' + JOB_NAMES[item] + ' has been selected. Here is some info. ' + data.description);
     });
