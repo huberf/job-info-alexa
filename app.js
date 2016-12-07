@@ -77,7 +77,7 @@ jobApp.intent("JobDescription",
     parseJob(request.slot('JobName')).then((jobTitle) => {
       getCareer(jobTitle.target).then((data) => {
         response.say('Here is some info about ' + jobTitle.target + '. ' + data.description);
-        response.card(jobTitle.target, data.description)
+        response.card(data.jobName, data.description)
         response.send();
       });
       return false;
