@@ -1,0 +1,8 @@
+JobDescription {JobName}
+JobDescription what are {JobName}
+JobDescription describe {JobName}
+JobIncome how much {JobName} earn
+JobIncome what do {JobName} earn
+JobEmployment how many {JobName} there are
+JobRandom random job
+JobRandom roll the dice

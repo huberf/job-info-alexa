@@ -1,0 +1,40 @@
+{
+  "intents": [
+    {
+      "intent": "JobDescription",
+      "slots": [
+        {
+          "name": "JobName",
+          "type": "JOB_NAMES"
+        }
+      ]
+    },
+    {
+      "intent": "JobIncome",
+      "slots": [
+        {
+          "name": "JobName",
+          "type": "JOB_NAMES"
+        }
+      ]
+    },
+    {
+      "intent": "JobEmployment",
+      "slots": [
+        {
+          "name": "JobName",
+          "type": "JOB_NAMES"
+        }
+      ]
+    },
+    {
+      "intent": "JobRandom"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    }
+  ]
+}
