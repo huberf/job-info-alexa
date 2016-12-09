@@ -134,7 +134,7 @@ jobApp.intent("AMAZON.HelpIntent",
     "slots": [],
   },
   function(request, response) {
-    response.say("This skill helps you learn about careers and sources its data from the Life Triage API. Try asking how much web developers earn or to define wellhead pumpers.").reprompt("I'm ready for your questions.");
+    response.say("This skill helps you learn about careers and sources its data from the Life Triage API. Try asking how much web developers earn or to define wellhead pumpers.").shouldEndSession(false).reprompt("I'm ready for your questions.");
   }
 );
 jobApp.intent("AMAZON.StopIntent",
