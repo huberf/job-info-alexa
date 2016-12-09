@@ -66,7 +66,7 @@ var parseJob = (name) => {
 
 var jobApp = new alexa.app('jobs');
 jobApp.launch(function(request,response) {
-  response.reprompt("You can ask me for information about jobs. Try saying, how much do Web Developers earn, or tell me about Medical Workers.");
+  response.say("You can ask me for information about jobs. Try saying, how much do Web Developers earn, or tell me about Medical Workers.").reprompt("You can ask now.");
 });
 jobApp.intent("JobDescription",
   {
