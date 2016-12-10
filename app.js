@@ -73,14 +73,18 @@ jobApp.intent("JobDescription",
     "slots": {"JobName": "JOB_NAMES"},
   },
   function(request,response) {
-    parseJob(request.slot('JobName')).then((jobTitle) => {
-      getCareer(jobTitle.target).then((data) => {
-        response.say('Here is some info about ' + jobTitle.target + '. ' + data.description);
-        response.card(data.jobName, data.description)
-        response.send();
+    try {
+      parseJob(request.slot('JobName')).then((jobTitle) => {
+        getCareer(jobTitle.target).then((data) => {
+          response.say('Here is some info about ' + jobTitle.target + '. ' + data.description);
+          response.card(data.jobName, data.description)
+          response.send();
+        });
+        return false;
       });
-      return false;
-    });
+    } catch (e) {
+      response.say('You need to supply a job name').send();
+    }
     return false;
   }
 );
@@ -89,13 +93,17 @@ jobApp.intent("JobIncome",
     "slots": {"JobName": "JOB_NAMES"},
   },
   function(request, response) {
-    parseJob(request.slot('JobName')).then((jobTitle) => {
-      getCareer(jobTitle.target).then((data) => {
-        response.say(jobTitle.target + ' earn about $' + data.meanAnnualWage + ' a year');
-        response.send();
+    try {
+      parseJob(request.slot('JobName')).then((jobTitle) => {
+        getCareer(jobTitle.target).then((data) => {
+          response.say(jobTitle.target + ' earn about $' + data.meanAnnualWage + ' a year');
+          response.send();
+        });
+        return false;
       });
-      return false;
-    });
+    } catch (e) {
+      response.say('You need to supply a job name').send();
+    }
     return false;
   }
 );
