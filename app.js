@@ -73,6 +73,7 @@ jobApp.intent("JobDescription",
     "slots": {"JobName": "JOB_NAMES"},
   },
   function(request,response) {
+    console.log(request.slot('JobName'));
     try {
       parseJob(request.slot('JobName')).then((jobTitle) => {
         getCareer(jobTitle.target).then((data) => {
