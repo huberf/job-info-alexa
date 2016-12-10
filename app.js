@@ -73,8 +73,7 @@ jobApp.intent("JobDescription",
     "slots": {"JobName": "JOB_NAMES"},
   },
   function(request,response) {
-    console.log(request.slot('JobName'));
-    try {
+    if (request.slot('JobName')) {
       parseJob(request.slot('JobName')).then((jobTitle) => {
         getCareer(jobTitle.target).then((data) => {
           response.say('Here is some info about ' + jobTitle.target + '. ' + data.description);
@@ -83,7 +82,7 @@ jobApp.intent("JobDescription",
         });
         return false;
       });
-    } catch (e) {
+    } else {
       response.say('You need to supply a job name').send();
     }
     return false;
@@ -94,7 +93,7 @@ jobApp.intent("JobIncome",
     "slots": {"JobName": "JOB_NAMES"},
   },
   function(request, response) {
-    try {
+    if (request.slot('JobName')) {
       parseJob(request.slot('JobName')).then((jobTitle) => {
         getCareer(jobTitle.target).then((data) => {
           response.say(jobTitle.target + ' earn about $' + data.meanAnnualWage + ' a year');
@@ -102,7 +101,7 @@ jobApp.intent("JobIncome",
         });
         return false;
       });
-    } catch (e) {
+    } else {
       response.say('You need to supply a job name').send();
     }
     return false;
@@ -113,13 +112,17 @@ jobApp.intent("JobEmployment",
     "slots": {"JobName": "JOB_NAMES"},
   },
   function(request, response) {
-    parseJob(request.slot('JobName')).then((jobTitle) => {
-      getCareer(jobTitle.target).then((data) => {
-        response.say('There are about ' + data.employment + ' ' + jobTitle.target + ' in the US.');
-        response.send();
+    if (request.slot('JobName')) {
+      parseJob(request.slot('JobName')).then((jobTitle) => {
+        getCareer(jobTitle.target).then((data) => {
+          response.say('There are about ' + data.employment + ' ' + jobTitle.target + ' in the US.');
+          response.send();
+        });
+        return false;
       });
-      return false;
-    });
+    } else {
+      response.say('You need to supply a job name').send();
+    }
     return false;
   }
 );
