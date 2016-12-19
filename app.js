@@ -157,6 +157,14 @@ jobApp.intent("AMAZON.StopIntent",
     response.say("Goodbye.");
   }
 );
+jobApp.intent("AMAZON.CancelIntent",
+  {
+    "slots": [],
+  },
+  function(request, response) {
+    response.say("Cancelled.");
+  }
+);
 
 jobApp.express(app, "/echo/");
 
